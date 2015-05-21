@@ -1,0 +1,15 @@
+<section data-ng-controller="HomeController" id="view">
+	<h1>Post to your {{ authentication.provider }}<!-- Facebook timeline --></h1>
+        <textarea rows="5" cols="17" class="form-control" ng-model="user.input"></textarea>
+        <br />
+        <button class="btn btn-warning" ng-click="post()" type="submit">Post</button>
+    <!--
+        <div ng-repeat="friend in friends.data">
+            <p>{{ friend.name }}</p>
+        </div>
+    -->
+    {{friendz}}
+    <div ng-repeat="friend in friendz">
+        {{ friend.name }}
+    </div>
+</section>
