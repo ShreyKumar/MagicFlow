@@ -8,8 +8,11 @@
             <p>{{ friend.name }}</p>
         </div>
     -->
-    {{friendz}}
-    <div ng-repeat="friend in friendz">
-        {{ friend.name }}
+    <h3>Your {{ authentication.user.provider }} connections</h3>
+    <div ng-repeat="friend in allfriends">
+        {{ friend }}
     </div>
+    <button ng-click="previousfriends()" class="btn btn-warning">Previous</button>
+    <button ng-click="nextfriends()" class="btn btn-info">Next</button><br /><br />
+    {{ frndmsg }}
 </section>

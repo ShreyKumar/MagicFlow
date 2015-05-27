@@ -1,24 +1,24 @@
 'use strict';
 
 //var users = require('public/users');
-angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Authentication',
-	function($rootScope, $scope, Authentication) {
+angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$http', 'Authentication',
+	function($rootScope, $scope, $http, Authentication) {
         //initialise scope vars
-        $scope.next = "";
-        $scope.friendz = "";
+        $scope.next = '';
+        $scope.friendz = '';
         
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
-        $scope.authentication.provider = "Facebook timeline";
+        $scope.authentication.provider = 'Facebook timeline';
         console.log($scope.authentication);
         
-        if($scope.authentication.user.provider == 'facebook'){
+        if($scope.authentication.user.provider === 'facebook'){
             // Load the SDK Asynchronously
             (function(d, s, id){
                 var js, fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) {return;}
                     js = d.createElement(s); js.id = id;
-                    js.src = "//connect.facebook.net/en_US/sdk.js";
+                    js.src = '//connect.facebook.net/en_US/sdk.js';
                     fjs.parentNode.insertBefore(js, fjs);
                 }(document, 'script', 'facebook-jssdk'));
 
@@ -29,10 +29,10 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
                 $scope.post = function(){
                     console.log('post has been clicked');
                     FB.api('/me/feed', 'post', {message: $scope.user.input}, function(){
-                        console.log("Your content has been posted!");
-                        alert("Posted to your timeline!");
+                        console.log('Your content has been posted!');
+                        alert('Posted to your timeline!');
                     });
-                }
+                };
 
                 FB.init({
                     appId      : 1445358595760933, // App ID
@@ -45,19 +45,61 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
                 });
                 
                 FB.login(function(){
-                    console.log("Permission has been granted");
+                    console.log('Permission has been granted');
                     //grab friends
                     /* make the API call */
-                    console.log(user.input);
-                        FB.api("/me/taggable_friends", function(response){
-                            console.log(response);
-                            $scope.friendz = response.data;
-                            console.log($scope.friendz);
-                            console.log(response.paging.next);
-                            $scope.next = response.paging.next;
-                            console.log($scope.next);
-                            $rootScope.$apply();
-                        });
+                    FB.api('/me/taggable_friends/', function(response){
+                        $scope.allfriends = [];
+                        
+                        $scope.friendz = response;
+                        console.log($scope.friendz);
+                        
+                        
+                        for(var i = 0; i < $scope.friendz.data.length; i++){
+                            console.log($scope.friendz.data[i].name);
+                            $scope.allfriends.push($scope.friendz.data[i].name);
+                        }
+                        
+                        console.log($scope.allfriends);
+                        
+                        $scope.next = response.paging.next;
+                        $scope.prev = response.paging.previous;
+                        $rootScope.$apply();
+                        console.log($scope.next);
+                        
+                        $scope.previousfriends = function(){
+                            console.log($scope.prev);
+                            if($scope.prev !== undefined){
+                                $http.get($scope.prev).success(function(data, status, headers, config){$scope.allfriends = [];
+                                    $scope.allfriends = [];
+                                    for(var i = 0; i < data.data.length; i++){
+                                        $scope.allfriends.push(data.data[i].name);
+                                    }
+                                    $scope.next = data.paging.next;
+                                    $scope.prev = data.paging.previous;
+                                });
+                            } else {
+                                alert('You can\'t go back');   
+                            }
+                            
+                        };
+                        
+                        $scope.nextfriends = function(){
+                            if($scope.next !== undefined){
+                                $http.get($scope.next).success(function(data, status, headers, config) {
+                                    $scope.allfriends = [];
+                                    for(var i = 0; i < data.data.length; i++){
+                                        $scope.allfriends.push(data.data[i].name);
+                                    }
+                                    $scope.next = data.paging.next;
+                                    $scope.prev = data.paging.previous;
+                                });
+                            } else {
+                                alert('You don\'t have any more friends...LOL');
+                            }
+                        };
+                    });
+                    
                 }, {scope: 'publish_actions, user_friends'});
             
             //grab the ID
@@ -66,15 +108,75 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', 'Au
             
         };
             
-        } else if($scope.authentication.user.provider == 'twitter'){
+        //outside asynchronous data
+            
+        } else if($scope.authentication.user.provider === 'twitter'){
             //set provider on screen
-            $scope.authentication.provider = "Twitter feed";
-            console.log("connected to twitter");
-        } else if($scope.authentication.user.provider == 'linkedin'){
-            $scope.authentication.provider = "Linkedin profile";
-            console.log("connected to linkedin");   
+            $scope.authentication.provider = 'Twitter feed';
+            console.log('connected to twitter');
+        } else if($scope.authentication.user.provider === 'google'){
+            console.log('connected to google+');
+            //window.accesstoken = $scope.authentication.providerData.accessToken;
+            console.log($scope.authentication);
+            $scope.authentication.provider = 'Google+ wall';
+            /** Google+ API **/
+            //ask for authorization
+            gapi.auth.authorize({
+                client_id : '1091191449450-q99l3jp72o79v5nk15hvigglmdb4j6ab.apps.googleusercontent.com',
+                immediate : false,
+                scope : ['https://www.googleapis.com/auth/plus.me','https://www.googleapis.com/auth/plus.circles.read', 'https://www.googleapis.com/auth/plus.stream.write', 'https://www.googleapis.com/auth/plus.media.upload']
+                
+            }, function(response){
+                console.log(response);
+                /* Post to stream */
+                gapi.client.request({
+                    path: "https://plus.google.com/115960927098866056811/",
+                    method: "POST",
+                    body: {
+                        description: 'Hello World!'
+                    }
+                }).execute(function(e) {
+                    console.log("did it.", e);
+                });
+                
+                /* Load connections */
+                gapi.client.load('plus','v1', function(){
+                    var request = gapi.client.plus.people.list({
+                        'userId': 'me',
+                        'collection': 'visible'
+                    });
+                    request.execute(function(resp) {
+                        console.log(resp);
+                        var total = [];
+                        for(var i = 0; i < resp.items.length; i++){
+                            total.push(resp.items[i].displayName);
+                        }
+                        console.log(total);
+                        $scope.allfriends = total;
+                        console.log($scope.allfriends);
+                        $rootScope.$apply();
+                    });
+                });   
+            });
+            /*
+            gapi.auth.signIn({
+                'client' : 'google-signin',
+                'data-clientid' : '1091191449450-q99l3jp72o79v5nk15hvigglmdb4j6ab.apps.googleusercontent.com',
+                'data-cookiepolicy' : 'single_host_origin',
+                'data-accesstype' : 'online',
+                'data-approvalprompt' : 'auto',
+                'data-callback' : 'function(authResult){
+                   console.log(authResult);
+                }',
+                'data-requestvisibleactions' : 'http://schema.org/AddAction, http://schema.org/BuyAction, http://schema.org/CheckInAction, http://schema.org/CommentAction'
+            });
+            */
+            
+        } else if($scope.authentication.user.provider === 'linkedin'){
+            $scope.authentication.provider = 'Linkedin profile';
+            console.log('connected to linkedin');   
         } else {
-            $scope.authentication.provider = "None";
-            console.log("Connected to other social media");
+            $scope.authentication.provider = 'None';
+            console.log('Connected to other social media');
         }
         }]);

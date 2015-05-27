@@ -17,6 +17,19 @@ module.exports = {
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
 			],
 			js: [
+                'https://apis.google.com/js/client:platform.js?onload=startApp',
+                /*
+                'public/lib/google-plus-extension-jsapi/jsapi/jsapi_helper.js',
+                'public/lib/google-plus-extension-jsapi/jsapi/jsapi_for_google_plus.js',
+                'public/lib/google-plus-extension-jsapi/jsapi/jsapi_abstract_database.js',
+                'public/lib/google-plus-extension-jsapi/jsapi/jsapi_database.js',
+                'public/lib/google-plus-extension-jsapi/settings.js',
+                'public/lib/google-plus-extension-jsapi/content_script_api_bridge.js',
+                'public/lib/google-plus-extension-jsapi/background_controller.js',
+                */
+                'https://apis.google.com/js/client:platform.js',
+                'https://apis.google.com/js/platform.js',
+                'https://apis.google.com/js/platform.js?onload=onLoadCallback',
                 'http://code.jquery.com/jquery-2.1.4.min.js',
 				'public/lib/angular/angular.js',
 				'public/lib/angular-resource/angular-resource.js', 

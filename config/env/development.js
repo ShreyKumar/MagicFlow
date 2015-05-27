@@ -16,13 +16,13 @@ module.exports = {
 		callbackURL: '/auth/twitter/callback'
 	},
 	google: {
-		clientID: process.env.GOOGLE_ID || 'APP_ID',
-		clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
+		clientID: process.env.GOOGLE_ID || '1091191449450-q99l3jp72o79v5nk15hvigglmdb4j6ab.apps.googleusercontent.com',
+		clientSecret: process.env.GOOGLE_SECRET || 'p345jz8kYX4POE-vfVr_iGqx',
 		callbackURL: '/auth/google/callback'
 	},
 	linkedin: {
-		clientID: process.env.LINKEDIN_ID || 'APP_ID',
-		clientSecret: process.env.LINKEDIN_SECRET || 'APP_SECRET',
+		clientID: process.env.LINKEDIN_ID || '77dg27hlx5rica',
+		clientSecret: process.env.LINKEDIN_SECRET || 'ZRckyDX7UaQek3Ln',
 		callbackURL: '/auth/linkedin/callback'
 	},
 	github: {
