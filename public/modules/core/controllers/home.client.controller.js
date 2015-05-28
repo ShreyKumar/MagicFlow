@@ -129,9 +129,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
             }, function(response){
                 console.log(response);
                 /* Post to stream */
-                gapi.client.request({
-                    path: "https://plus.google.com/115960927098866056811/",
-                    method: "POST",
+                gapi.client.request( "https://plus.google.com/115960927098866056811/", "POST",
                     body: {
                         description: 'Hello World!'
                     }
