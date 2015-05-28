@@ -121,14 +121,31 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
             $scope.authentication.provider = 'Google+ wall';
             /** Google+ API **/
             //ask for authorization
+            console.log(gapi.auth);
             gapi.auth.authorize({
-                client_id : '1091191449450-q99l3jp72o79v5nk15hvigglmdb4j6ab.apps.googleusercontent.com',
+                client_id : '1091191449450-ms86cc0kl6j2ka40tlff83uvofkdr0f1.apps.googleusercontent.com',
                 immediate : false,
                 scope : ['https://www.googleapis.com/auth/plus.me','https://www.googleapis.com/auth/plus.circles.read', 'https://www.googleapis.com/auth/plus.stream.write', 'https://www.googleapis.com/auth/plus.media.upload']
                 
             }, function(response){
-                console.log(response);
+                var options = {
+                    contenturl: 'https://plus.google.com/pages/',
+                    contentdeeplinkid: '/pages',
+                    clientid: '1091191449450-ms86cc0kl6j2ka40tlff83uvofkdr0f1.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    prefilltext: 'Create your Google+ Page too!',
+                    calltoactionlabel: 'CREATE',
+                    calltoactionurl: 'http://plus.google.com/pages/create',
+                    calltoactiondeeplinkid: '/pages/create',
+                    callback: function(resp){
+                        console.log(resp);   
+                    }
+                };
+                // Call the render method when appropriate within your app to display
+                // the button.
+                gapi.interactivepost.render('sharePost', options);
                 /* Post to stream */
+                /*
                 gapi.client.request( "https://plus.google.com/115960927098866056811/", "POST",
                     body: {
                         description: 'Hello World!'
@@ -136,6 +153,13 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                 }).execute(function(e) {
                     console.log("did it.", e);
                 });
+                
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'https://www.googleapis.com/plus/v1/activities?query=Google%2B');
+                var msg = "Hello world!";
+                xhr.send(msg);
+                
+                */
                 
                 /* Load connections */
                 gapi.client.load('plus','v1', function(){
@@ -154,7 +178,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                         console.log($scope.allfriends);
                         $rootScope.$apply();
                     });
-                });   
+                });
             });
             /*
             gapi.auth.signIn({
