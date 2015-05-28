@@ -3,6 +3,12 @@
 //var users = require('public/users');
 angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$http', 'Authentication',
 	function($rootScope, $scope, $http, Authentication) {
+        var loc = window.location.href
+        console.log("Current location: " + loc);
+        if (loc.indexOf("#") == -1){
+            window.location.pathname = "/#!/";
+        }
+        
         //initialise scope vars
         $scope.next = '';
         $scope.friendz = '';
@@ -116,6 +122,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
             console.log('connected to twitter');
         } else if($scope.authentication.user.provider === 'google'){
             console.log('connected to google+');
+            $scope.user = {input : ""};
             //window.accesstoken = $scope.authentication.providerData.accessToken;
             console.log($scope.authentication);
             $scope.authentication.provider = 'Google+ wall';
@@ -133,7 +140,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                     contentdeeplinkid: '/pages',
                     clientid: '1091191449450-ms86cc0kl6j2ka40tlff83uvofkdr0f1.apps.googleusercontent.com',
                     cookiepolicy: 'single_host_origin',
-                    prefilltext: 'Create your Google+ Page too!',
+                    prefilltext: '',
                     calltoactionlabel: 'CREATE',
                     calltoactionurl: 'http://plus.google.com/pages/create',
                     calltoactiondeeplinkid: '/pages/create',
@@ -141,6 +148,12 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                         console.log(resp);   
                     }
                 };
+                $scope.post = function(){
+                    //$scope.inp = $scope.user.input;
+                    options.prefilltext = $scope.user.input;
+                    $rootScope.$apply();
+                }
+                options.prefilltext = "";
                 // Call the render method when appropriate within your app to display
                 // the button.
                 gapi.interactivepost.render('sharePost', options);
@@ -196,7 +209,9 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
             
         } else if($scope.authentication.user.provider === 'linkedin'){
             $scope.authentication.provider = 'Linkedin profile';
-            console.log('connected to linkedin');   
+            console.log('connected to linkedin');
+            
+            
         } else {
             $scope.authentication.provider = 'None';
             console.log('Connected to other social media');
