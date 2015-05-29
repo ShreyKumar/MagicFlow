@@ -51,6 +51,10 @@ module.exports = function(app) {
 	// Setting the linkedin oauth routes
 	app.route('/auth/linkedin').get(passport.authenticate('linkedin'));
 	app.route('/auth/linkedin/callback').get(users.oauthCallback('linkedin'));
+    
+    // Setting the instagram oauth routes
+    app.route('/auth/instagram').get(passport.authenticate('instagram'));
+    app.route('/auth/instagram/callback').get(users.oauthCallback('instagram'));
 
 	// Setting the github oauth routes
 	app.route('/auth/github').get(passport.authenticate('github'));
