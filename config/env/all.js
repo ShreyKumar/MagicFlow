@@ -18,6 +18,7 @@ module.exports = {
 			],
 			js: [
                 'https://apis.google.com/js/client:platform.js?onload=startApp',
+                'public/lib/instafeed.js/instafeed.min.js',
                 /*
                 'public/lib/google-plus-extension-jsapi/jsapi/jsapi_helper.js',
                 'public/lib/google-plus-extension-jsapi/jsapi/jsapi_for_google_plus.js',

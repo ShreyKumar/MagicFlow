@@ -215,5 +215,11 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
         } else {
             $scope.authentication.provider = 'None';
             console.log('Connected to other social media');
+            var feed = new Instafeed({
+                get: 'tagged',
+                tagName: 'awesome',
+                clientId: '9dc21292970945f58b50e31be0a5dbf6'
+            });
+            feed.run();
         }
         }]);
