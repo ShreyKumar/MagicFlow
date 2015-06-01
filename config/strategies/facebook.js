@@ -23,6 +23,8 @@ module.exports = function() {
 			providerData.accessToken = accessToken;
 			providerData.refreshToken = refreshToken;
 
+            console.log("Profile here");
+            console.log(profile);
 			// Create the user OAuth profile
 			var providerUserProfile = {
 				firstName: profile.name.givenName,

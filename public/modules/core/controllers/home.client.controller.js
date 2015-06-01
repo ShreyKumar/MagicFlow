@@ -218,7 +218,8 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
             var feed = new Instafeed({
                 get: 'tagged',
                 tagName: 'awesome',
-                clientId: '9dc21292970945f58b50e31be0a5dbf6'
+                clientId: '9dc21292970945f58b50e31be0a5dbf6',
+                useHttp: true
             });
             feed.run();
         }

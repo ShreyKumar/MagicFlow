@@ -54,11 +54,13 @@ module.exports = function(app) {
     
     // Setting the instagram oauth routes
     app.route('/auth/instagram').get(passport.authenticate('instagram'));
+    
     app.route('/auth/instagram/callback').get(users.oauthCallback('instagram', 
     {
-        successRedirect: '/#!',
-        failureRedirect: '/signin'
+        successRedirect: '/#!/callback',
+        failureRedirect: '/#!'
     }));
+    
 
 	// Setting the github oauth routes
 	app.route('/auth/github').get(passport.authenticate('github'));

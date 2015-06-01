@@ -48,6 +48,11 @@ module.exports = {
 		clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
 		callbackURL: '/auth/github/callback'
 	},
+    instagram: {
+        clientID: process.env.INSTAGRAM_ID || '9dc21292970945f58b50e31be0a5dbf6',
+        clientSecret: process.env.INSTAGRAM_SECRET || '8666cee816484c6ca4482c996fda3c66',
+        callbackURL: '/auth/instagram/callback'
+    },
 	mailer: {
 		from: process.env.MAILER_FROM || 'MAILER_FROM',
 		options: {
