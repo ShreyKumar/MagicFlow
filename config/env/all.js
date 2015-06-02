@@ -17,6 +17,7 @@ module.exports = {
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
 			],
 			js: [
+                'https://js.stripe.com/v2/',
                 'https://apis.google.com/js/client:platform.js?onload=startApp',
                 'public/lib/instafeed.js/instafeed.min.js',
                 /*

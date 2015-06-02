@@ -1,14 +1,4 @@
 <section data-ng-controller="PaymentController">
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script type="text/javascript">
-        Stripe.setPublishableKey('pk_test_Hge89pbbLzszQcMRpKIGXm9d');
-        
-        
-        var $form = document.getElementById('payment');
-        var token = Stripe.card.createToken($form, function(status, response){
-            console.log(response);   
-        });
-    </script>
     <h1>Payment form</h1>
     <form action="" method="post" class="form-control" id="payment">
         <label for="number">Card number</label>
@@ -19,6 +9,6 @@
         <input type="text" id="expmonth" ng-model="expmonth" class="form-control" data-stripe="expmonth" size="2" />
         <input type="text" id="expyear" ng-model="expyear" class="form-control" data-stripe="expyear" size="4"/>
         
-        <button type="submit" id="send">Submit</button>
+        <button type="submit" id="send" ng-click="submitPayment()">Submit</button>
     </form>
 </section>
