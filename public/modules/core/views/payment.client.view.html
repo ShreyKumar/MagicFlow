@@ -6,8 +6,8 @@
         <label for="cvc">CVC number</label>
         <input type="text" size="4" id="cvc" ng-model="cvc" class="form-control" data-stripe="cvc"/>
         <label for="expdate">Expiry Date</label>
-        <input type="text" id="expmonth" ng-model="expmonth" class="form-control" data-stripe="expmonth" size="2" />
-        <input type="text" id="expyear" ng-model="expyear" class="form-control" data-stripe="expyear" size="4"/>
+        <input type="text" id="expmonth" ng-model="expmonth" class="form-control" data-stripe="exp-month" size="2" />
+        <input type="text" id="expyear" ng-model="expyear" class="form-control" data-stripe="exp-year" size="4"/>
         
         <button type="submit" id="send" ng-click="submitPayment()">Submit</button>
     </form>

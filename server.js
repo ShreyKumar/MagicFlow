@@ -5,7 +5,8 @@
 var init = require('./config/init')(),
 	config = require('./config/config'),
 	mongoose = require('mongoose'),
-	chalk = require('chalk');
+	chalk = require('chalk'),
+    stripe = require('stripe')('pk_test_Hge89pbbLzszQcMRpKIGXm9d');
 
 /* Passport */
 var passport = require('passport');
@@ -35,5 +36,9 @@ app.listen(config.port);
 // Expose app
 exports = module.exports = app;
 
+//connect to stripe
+app.post(function(err, doc){
+       
+});
 // Logging initialization
 console.log('MEAN.JS application started on port ' + config.port);
