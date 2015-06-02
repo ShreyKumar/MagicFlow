@@ -177,7 +177,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                 /* Load connections */
                 gapi.client.load('plus','v1', function(){
                     var request = gapi.client.plus.people.list({
-                        'userId': 'me',
+                        'userId': 'me', 
                         'collection': 'visible'
                     });
                     request.execute(function(resp) {
