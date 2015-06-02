@@ -1,13 +1,13 @@
 <section data-ng-controller="PaymentController">
     <h1>Payment form</h1>
-    <form action="" method="post" class="form-control" id="payment">
+    <form action="" method="POST" class="form-control" id="payment">
         <label for="number">Card number</label>
-        <input size="20" type="text" id="number" ng-model="number" class="form-control" data-stripe="number"/>
+        <input size="20" type="text" id="number" ng-model="payment.number" class="form-control" data-stripe="number"/>
         <label for="cvc">CVC number</label>
-        <input type="text" size="4" id="cvc" ng-model="cvc" class="form-control" data-stripe="cvc"/>
+        <input type="text" size="4" id="cvc" ng-model="payment.cvc" class="form-control" data-stripe="cvc"/>
         <label for="expdate">Expiry Date</label>
-        <input type="text" id="expmonth" ng-model="expmonth" class="form-control" data-stripe="exp-month" size="2" />
-        <input type="text" id="expyear" ng-model="expyear" class="form-control" data-stripe="exp-year" size="4"/>
+        <input type="text" id="expmonth" ng-model="payment.month" class="form-control" data-stripe="exp-month" size="2" />
+        <input type="text" id="expyear" ng-model="payment.expyear" class="form-control" data-stripe="exp-year" size="4"/>
         
         <button type="submit" id="send" ng-click="submitPayment()">Submit</button>
     </form>
