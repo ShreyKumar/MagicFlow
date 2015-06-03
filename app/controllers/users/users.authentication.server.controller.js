@@ -83,11 +83,16 @@ exports.signout = function(req, res) {
 exports.oauthCallback = function(strategy) {
 	return function(req, res, next) {
 		passport.authenticate(strategy, function(err, user, redirectURL) {
+            console.log("RESPONSE HERE");
+            console.log(res);
 			if (err || !user) {
+                console.log("ERROR HERE");
+                console.log(err);
 				return res.redirect('/#!/signin');
 			}
 			req.login(user, function(err) {
 				if (err) {
+                    console.log("ERROR HERE");
                     console.log(err);
 					return res.redirect('/#!/signin');
 				}

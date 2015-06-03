@@ -14,6 +14,16 @@
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+    
+</script>
+<script src="//platform.linkedin.com/in.js" async>
+    api_key: 77dg27hlx5rica,
+    onLoad: callback
+</script>
+<script type="text/javascript">
+    function callback(){
+        alert('loaded');   
+    }
 </script>
 
 <section class="row" data-ng-controller="AuthenticationController">
