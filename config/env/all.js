@@ -29,7 +29,6 @@ module.exports = {
                 'public/lib/google-plus-extension-jsapi/content_script_api_bridge.js',
                 'public/lib/google-plus-extension-jsapi/background_controller.js',
                 */
-                '//platform.linkedin.com/in.js',
                 'https://apis.google.com/js/client:platform.js',
                 'https://apis.google.com/js/platform.js',
                 'https://apis.google.com/js/platform.js?onload=onLoadCallback',

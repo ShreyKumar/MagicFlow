@@ -219,12 +219,6 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                     console.log(data);   
                 }
                 
-                  // Handle the successful return from the API call
-            
-                //function onSuccess(data) {
-                //    console.log(data);
-                //}
-
                 // Handle an error response from the API call
                 function onError(error) {
                     console.log(error);
