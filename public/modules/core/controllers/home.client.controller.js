@@ -210,6 +210,43 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
         } else if($scope.authentication.user.provider === 'linkedin'){
             $scope.authentication.provider = 'Linkedin profile';
             console.log('connected to linkedin');
+                function onLinkedInLoad(){
+                    console.log('load function');
+                    IN.Event.on(IN, "auth", shareContent);   
+                }
+                
+                function onSuccess(data){
+                    console.log(data);   
+                }
+                
+                  // Handle the successful return from the API call
+            
+                //function onSuccess(data) {
+                //    console.log(data);
+                //}
+
+                // Handle an error response from the API call
+                function onError(error) {
+                    console.log(error);
+                }
+
+              // Use the API call wrapper to share content on LinkedIn
+              function shareContent() {
+
+                // Build the JSON payload containing the content to be shared
+                var payload = { 
+                  "comment": "Check out developer.linkedin.com! http://linkd.in/1FC2PyG", 
+                  "visibility": { 
+                    "code": "anyone"
+                  } 
+                };
+
+                IN.API.Raw("/people/~/shares?format=json")
+                  .method("POST")
+                  .body(JSON.stringify(payload))
+                  .result(onSuccess)
+                  .error(onError);
+              }
             
             
         } else {
