@@ -1,0 +1,8 @@
+All code on home.client.controller.js 
+Facebook - works completely
+LinkedIn - was working but now results in error 404 - refer to server when debugging
+Google+ - share and authentication works
+
+
+Stipe inside payment controller, works perfectly
+

@@ -8,6 +8,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
         if (loc.indexOf("#") == -1){
             window.location.pathname = "/#!/";
         }
+        //ignore above, it tries to fix the URL problem
         
         //initialise scope vars
         $scope.next = '';
@@ -15,6 +16,8 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
         
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
+        
+        //provider just for UI purposes
         $scope.authentication.provider = 'Facebook timeline';
         console.log($scope.authentication);
         
@@ -29,6 +32,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                 }(document, 'script', 'facebook-jssdk'));
 
             //connect to facebook
+            //
             window.fbAsyncInit = function() {
 
                 /* Post function*/
@@ -40,6 +44,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                     });
                 };
 
+                //initializes sdk 
                 FB.init({
                     appId      : 1445358595760933, // App ID
                     status     : true,    // check login status
@@ -54,6 +59,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                     console.log('Permission has been granted');
                     //grab friends
                     /* make the API call */
+                    //gets all friends 
                     FB.api('/me/taggable_friends/', function(response){
                         $scope.allfriends = [];
                         
@@ -73,6 +79,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                         $rootScope.$apply();
                         console.log($scope.next);
                         
+                        //previous friends, loads previous friends 25 friends through another access token
                         $scope.previousfriends = function(){
                             console.log($scope.prev);
                             if($scope.prev !== undefined){
@@ -106,6 +113,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
                         };
                     });
                     
+                //define certain scopes that needs to be handeled 
                 }, {scope: 'publish_actions, user_friends'});
             
             //grab the ID
@@ -209,46 +217,44 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
             
         } else if($scope.authentication.user.provider === 'linkedin'){
             $scope.authentication.provider = 'Linkedin profile';
-            console.log('connected to linkedin');
-                function onLinkedInLoad(){
-                    console.log('load function');
-                    IN.Event.on(IN, "auth", shareContent);   
-                }
-                
-                function onSuccess(data){
-                    console.log(data);   
-                }
-                
-                  // Handle the successful return from the API call
-            
-                //function onSuccess(data) {
-                //    console.log(data);
-                //}
-
-                // Handle an error response from the API call
-                function onError(error) {
-                    console.log(error);
-                }
-
-              // Use the API call wrapper to share content on LinkedIn
-              function shareContent() {
-
-                // Build the JSON payload containing the content to be shared
-                var payload = { 
-                  "comment": "Check out developer.linkedin.com! http://linkd.in/1FC2PyG", 
-                  "visibility": { 
-                    "code": "anyone"
-                  } 
-                };
-
-                IN.API.Raw("/people/~/shares?format=json")
-                  .method("POST")
-                  .body(JSON.stringify(payload))
-                  .result(onSuccess)
-                  .error(onError);
-              }
-            
-            
+            function onLinkedInLoad(){
++                    console.log('load function');
++                    IN.Event.on(IN, "auth", shareContent);   
++                }
++                
++                function onSuccess(data){
++                    console.log(data);   
++                }
++                
++                  // Handle the successful return from the API call
++            
++                //function onSuccess(data) {
++                //    console.log(data);
++                //}
++
++                // Handle an error response from the API call
++                function onError(error) {
++                    console.log(error);
++                }
++
++              // Use the API call wrapper to share content on LinkedIn
++              function shareContent() {
++
++                // Build the JSON payload containing the content to be shared
++                var payload = { 
++                  "comment": "Check out developer.linkedin.com! http://linkd.in/1FC2PyG", 
++                  "visibility": { 
++                    "code": "anyone"
++                  } 
++                };
++
++                IN.API.Raw("/people/~/shares?format=json")
++                  .method("POST")
++                  .body(JSON.stringify(payload))
++                  .result(onSuccess)
++                  .error(onError);
++              }
+             
         } else {
             $scope.authentication.provider = 'None';
             console.log('Connected to other social media');
