@@ -4,8 +4,31 @@
  * Module dependencies.
  */
 var passport = require('passport');
+var Linkedin = require('node-linkedin')('77dg27hlx5rica', 'ZRckyDX7UaQek3Ln', 'http://localhost:3000/auth/linkedin/callback');
+//var linkedin = Linkedin.init(sessionStorage.getItem("accesstoken"));
 
 module.exports = function(app) {
+    
+    //oauth linkedin
+    app.get('/oauth/linkedin', function(req, res){
+        Linkedin.auth.authorize(res, ['r_basicprofile', 'r_fullprofile', 'r_emailaddress', 'r_network', 'r_contactinfo', 'rw_nus', 'rw_groups', 'w_messages']);   
+    });
+    
+    app.get('/oauth/linkedin/callback', function(req, res) {
+        Linkedin.auth.getAccessToken(res, req.query.code, req.query.state, function(err, results) {
+            if ( err )
+                return console.error(err);
+
+            /**
+             * Results have something like:
+             * {"expires_in":5184000,"access_token":". . . ."}
+             */
+
+            console.log(results);
+            return res.redirect('/');
+        });
+    });
+    
 	// User Routes
 	var users = require('../../app/controllers/users.server.controller');
 
@@ -49,7 +72,7 @@ module.exports = function(app) {
 	app.route('/auth/google/callback').get(users.oauthCallback('google'));
 
 	// Setting the linkedin oauth routes
-	app.route('/auth/linkedin').get(passport.authenticate('linkedin'));
+	app.route('/auth/linkedin').get(passport.authenticate('linkedin', { scope: ['r_basicprofile','r_emailaddress', 'w_share', 'r_network']}));
 	app.route('/auth/linkedin/callback').get(users.oauthCallback('linkedin'));
     
     // Setting the instagram oauth routes
