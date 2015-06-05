@@ -216,8 +216,6 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
             */
             
         } else if($scope.authentication.user.provider === 'linkedin'){
-            
-                    
             $scope.authentication.provider = 'Linkedin profile';
 <<<<<<< HEAD
             function onLinkedInLoad(){
@@ -260,6 +258,7 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
              
 =======
             console.log('connected to linkedin');
+<<<<<<< HEAD
                 function onSuccess(data){
                 }
                 
@@ -288,6 +287,9 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
             
             
 >>>>>>> 58024b4915d7a51119414fdce2a27a92897e761d
+=======
+            sessionStorage.setItem("accesstoken", $scope.authentication.user.providerData.accessToken);
+>>>>>>> 3018a46d2b5035b3cd3fbe6aadea0e4ca84b7562
         } else {
             $scope.authentication.provider = 'None';
             console.log('Connected to other social media');
