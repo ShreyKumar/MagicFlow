@@ -208,15 +208,11 @@ angular.module('core').controller('HomeController', ['$rootScope', '$scope', '$h
             */
             
         } else if($scope.authentication.user.provider === 'linkedin'){
+            
+                    
             $scope.authentication.provider = 'Linkedin profile';
             console.log('connected to linkedin');
-                function onLinkedInLoad(){
-                    console.log('load function');
-                    IN.Event.on(IN, "auth", shareContent);   
-                }
-                
                 function onSuccess(data){
-                    console.log(data);   
                 }
                 
                 // Handle an error response from the API call
