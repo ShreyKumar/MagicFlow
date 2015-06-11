@@ -15,11 +15,27 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+                /* All CSS from template */
+                'assets/plugins/jasny-bootstrap/css/jasny-bootstrap.min.css',
+                'assets/plugins/font-awesome/css/font-awesome.css',
+                'assets/plugins/pe-icon-7-stroke/css/pe-icon-7-stroke.css',
+                'assets/plugins/pe-icon-7-stroke/css/helper.css',
+                'assets/plugins/owl-carousel/owl.carousel.css',
+                'assets/plugins/owl-carousel/owl.theme.css',
+                'assets/plugins/fullPage.js/jquery.fullPage.css'
 			],
 			js: [
                 'https://js.stripe.com/v2/',
                 'https://apis.google.com/js/client:platform.js?onload=startApp',
                 'public/lib/instafeed.js/instafeed.min.js',
+                
+                /* TEMPLATE JAVASCRIPT*/
+                'assets/plugins/FitVids/jquery.fitvids.js',
+                'assets/plugins/jquery.validate.min.js',
+                'assets/js/form-validation-custom.js',
+                'assets/plugins/isMobile/isMobile.min.js',
+                'assets/js/form-mobile-fix.js',
+                'http://a.vimeocdn.com/js/froogaloop2.min.js',
                 /*
                 'public/lib/google-plus-extension-jsapi/jsapi/jsapi_helper.js',
                 'public/lib/google-plus-extension-jsapi/jsapi/jsapi_for_google_plus.js',
